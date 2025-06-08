@@ -77,3 +77,21 @@ for instance in the 1st case the Client class is inheriting db.Model attributes
 class Client (db.Model):
       id = db.Column(db.Integer , primary_key = True )
     # in this case Column is an attribute that is inherited by Client from db which is from SQl ALchemy
+
+handling relationships
+eg between projects and clients 
+client_id = db.Column(db.Integer , db.ForeignKey('Client.id') , nullable = False)
+ db.ForeignKey('Client.id') Client is a table and id is the column we are referencing
+
+parent table =  Client 
+child table = Project
+
+if we dont want to pass a relationship (Foreign key) in the parent table (Client) we can implement a line of code that will help us fetch a client with their related project
+
+code = projects = db.relationship('Project',backref='client',lazy=True)
+'Project' = this is the model
+backref='client' = this refers to the client
+
+
+
+
