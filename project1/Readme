@@ -1,0 +1,79 @@
+Prerequisites:
+1. Python
+2. Pip
+3. Pipenv
+4. Thunderclient 
+
+Use of thunderclient extension on visual studio code to tst the application
+
+Objectives:
+1. Folder Structure
+2. models - SQLAlchemy
+3. migration
+4. seeding - Faker
+
+Setup steps
+1. install flask in your virtual environment.
+   pipenv install flask
+2. Run your virtual environment.
+   pipenv shell
+3. Ensure that the virtual environment is running.
+4. to run flask in terminal
+   a. cd backend
+   b. flask run
+5. install SQLAlchemy package for flask.
+   pipenv install Flask-SQLAlchemy
+
+
+1. Models.py file
+    Flask does not have any design pattern therefore you must start everything from scratch.
+    A design pattern is a folder structure that is used.
+    Types of design patterns
+    1. MVC - (Model View Controller) - we wil use this
+    2. MVT - (Model View Template)
+
+    Model - handle data logic
+    View  - to display data to the user(Fronend)
+    Controller - Intermediary between the model and the view
+
+    View -> Controller -> Model
+
+
+
+2. App.py file
+
+Models.py Steps
+
+1. import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+
+2. initialize your database to sql alchemy method
+
+db = SQLAlchemy()
+
+3. initialize you classes .
+
+class Client(db.Model):
+    pass
+class Suppliers(db.Model):
+    pass
+class Personnel(db.Model):
+    pass
+class Projects(db.Model):
+    pass
+class Certification(db.Model):
+    pass
+class Equipment(db.Model):
+    pass
+class Materials(db.Model):
+    pass
+class Financials(db.Model):
+    pass
+
+meaning of db.Model - classes are mapped to database tables any Model you will create will be converted to a database table after migrations so we are inheriting the db.Model features.
+
+for instance in the 1st case the Client class is inheriting db.Model attributes 
+
+class Client (db.Model):
+      id = db.Column(db.Integer , primary_key = True )
+    # in this case Column is an attribute that is inherited by Client from db which is from SQl ALchemy
