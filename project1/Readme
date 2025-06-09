@@ -93,5 +93,77 @@ code = projects = db.relationship('Project',backref='client',lazy=True)
 backref='client' = this refers to the client
 
 
+2. Migration
+This is needed when you want to use the models
+installation - needs flask migration package 
+change directory until you see the pipfile and then in your terminal run pipenv shell to run your virtual environment.
+
+then pipenv install Flask-Migrate to install the package.
+
+in the app.py we will
+1. import flask Migrate
+2. import the models
+3. connect to the database
+4. initialize the migrations
+5.initialize the database
 
 
+1. import flask Migrate
+from flask_migrate import Migrate
+
+2. import the models
+from models import db,Client,Supplier,Personnel,Project,Certification,Equipment,Material,Financial
+
+
+3. connect to the database
+  app = Flask(__name__)
+  app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///HousingDevelpment.db"
+  this is because the config is an array and the database which is
+  "sqlite:///HousingDevelopment.db" the database is called HousingDevelopment
+
+remember to use the sqlite viewer extension
+
+4. initialize the migrations
+migrate = Migrate(app,db)
+Migrate(app,db)
+app -> this is the app that we have initialized that contains the database URI
+so the app below
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///HousingDevelpment.db"
+
+5.initialize the database
+db.init_app(app)
+
+in the terminal we will
+remember to navigate to the folder that has your app.py and remember to run your virtual environment.
+
+1. initialize the migration environment/create the databases
+ command = flask db init
+ this command will create an instance which is a folder and also creates the migration folder 
+ inside the migrations folder there is a folder called versions where the migration files will be held
+
+ 1st migration
+ this will create a migration file and it will store all the data from the Classes which will be converted into tables after migrating them
+
+ 2. actually migrate
+ command =  flask db migrate -m "1st migration"
+"1st migration" simply the migration name
+
+3. there will be a new file created inside the migration folder inside the versions folder for me it is called 2baa20fdffd6_1st_migration.py
+
+inside it there are 2 functions upgrade and downgrade
+upgrade = create tables
+downgrade =  drop tables
+
+To create the database tables = flask db upgrade
+To delete the database tables = flask db downgrade
+
+when it comes to upgrade there are 2 types:
+1. flask db upgrade
+2. flask db upgrade head - this updates the database tables based on the next migration  
+e.g in versions there are 3 files 2baa20fdffd6_1st_migration.py,b,c 
+ we have already run flask db upgrade for this one 2baa20fdffd6_1st_migration.py so now if we want to run flask db upgrade it will go to the next created migration file which is b
+ so there is an order
+ THAT IS FOR UPGRADE ALONE
+
+ FOR UPGRADE HEAD it will run all the available migrations
