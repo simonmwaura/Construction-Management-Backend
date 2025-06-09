@@ -167,3 +167,58 @@ e.g in versions there are 3 files 2baa20fdffd6_1st_migration.py,b,c
  THAT IS FOR UPGRADE ALONE
 
  FOR UPGRADE HEAD it will run all the available migrations
+
+
+ SEEDING YOUR database
+ adding initial data to the database using Faker
+
+in the terminal we will
+remember to navigate to run your virtual environment.
+then run the following command = pipenv install Faker 
+
+in seed.py there are 2 options you can create 1 function that will seed data to all of the databases or you can create 5 functions to seed data to 5 databases
+
+i chose the first option
+
+1. create the function
+def seed_data():
+    pass
+
+2.call the function
+seed_data()
+
+3. import faker 
+from faker import Faker
+
+4. import the models
+from models import db,Client,Supplier,Personnel,Project,Certification,Equipment,Material,Financial
+
+5.import app
+from app import app
+
+6.initialize faker
+faker=Faker()
+
+7. pass the context of your app
+def seed_data():
+    with app.app_context():
+
+8.inside the seed_data function you can do anything e.g drop tables , create tables , create clients .
+
+9. if you dont want to use faker you can create your users in the normal way
+def seed_data():
+    with app.app_context():
+    client1 = Client(name ='Michael',email="Michael23@gmail.com",phone_number='+254712345678',national_identity_number='102030408')
+
+10. after that we create our session to add the client data and to commit it to our database 
+db.session.add(client1)
+db.session.commit()
+
+11.Run the file using python seed.py
+12.it is best practice to always drop the tables then create them so when you run the seed file it will delete then run them again
+db.drop_all()
+db.create_all()
+before you create the clients
+
+
+
